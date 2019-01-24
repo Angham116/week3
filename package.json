@@ -1,0 +1,23 @@
+{
+  "name": "week3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "test": "tape ./public/js/test.js | tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Angham116/week3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Angham116/week3/issues"
+  },
+  "homepage": "https://github.com/Angham116/week3#readme",
+  "devDependencies": {
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.2"
+  }
+}
