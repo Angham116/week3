@@ -1,4 +1,3 @@
-const url = 'https://api.github.com/user';
 const fetchFunction = (method, url, responseBody, callback) => {
 	if (!url) callback(new TypeError('Enter url'));
 	if (!method) callback(new TypeError('Enter method'));
@@ -24,8 +23,8 @@ const fetchFunction = (method, url, responseBody, callback) => {
 
 const handleResponse = (error, response) => {
 	if (error) console.log(error)//handle Error
-	else // handle Response
+	// else // handle Response
 }
 if (typeof module !== "undefined") {
-	module.exports = { checkUrl, checkCallbackType };
+	module.exports = { fetchFunction };
 }
