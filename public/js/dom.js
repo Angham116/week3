@@ -1,44 +1,56 @@
 // const url = `https://api.themoviedb.org/3/search/movie?api_key=${config.apiKey }&language=en-US&query=`;
-function selecElement(id) {
-	return document.querySelector(id);
-}
-function addEventListenerForSelector(selectorElement, event, callback){
-	return document.querySelector(selectorElement).addEventListener(event,callback);
-}
-function createElement(e){
-	return document.createElement(e);
-}
-addEventListenerForSelector('#submit-btn', 'submit', (event) => {
-	event.preventDefault();
-	if (selecElement('#searchInput').value == ""){
-		alert('Entar a movie name');
-	}
-	selecElement('#searchInput').innnerHTML = "";
-	var url = `https://api.themoviedb.org/3/search/movie?api_key=${config.apiKey }&language=en-US&query= + ${selecElement('#searchInput').value}`;
-	fetchFunction('GET', url, (response) => {
-		var result = response.results;
-		cosole.log(result);
-		if (result.length == 0){
-			var msg = createElement('p').innnerHTML = "No Results";
-			selecElement('#movies').appenChild(msg);
-		}
-		for(var i = 0; i < result.length; i++){
-			var id = result[i].id ;
-			var title = result[i].original_title ;
-			var image = result[i].poster_path ;
-			var overview = result[i].overview ;
-			var voteAverage = result[i].vote_average ;
+const submitBtn = document.querySelector('#submit-btn');
+const searchInput = document.querySelector('#searchInput');
+const container = document.querySelector('#movies');
 
-			var movieName= createElement('h2');
-			var movieImage = createElement('img');
-			var movieOverview = createElement('h4');
-			var voteAverageSpan = createElement('span');
-			var movieDiv = createElement('div');
-			movieDiv.appenChild(movieName);
-			movieDiv.appenChild(movieImage);
-			movieDiv.appenChild(movieOverview);
-			movieDiv.appenChild(voteAverageSpan);
-			selecElement('#movies').appenChild(movieDiv);
-		}
-	});
-})
+// Create Node function
+function makeNodes(nodeName, nodeType) {
+	if (nodeName.length !== nodeType.length) {
+		return 'Error';
+	} else {
+		const node = { };
+		nodeName.map((name, index) => {
+			node[name] = createElement(node[index])
+
+		})
+	}
+	return node;
+}
+
+submitBtn.addEventListener('submit', () => {
+			event.preventDefault();
+			const query = searchInput.value.trim();
+			if (query === "") {
+				const {
+					noResult
+				} = makeNodes(['pargragh'], ['p']);
+				noResult.textContent = 'Entaer a valid movie';
+				container.appenChild(noResult);
+			}
+
+			searchInput.innnerHTML = "";
+			var url = `https://api.themoviedb.org/3/search/movie?api_key=${config.apiKey }&language=en-US&query=${query}`;
+			fetchFunction('GET', url, (response) => {
+					var result = response.results;
+					if (result.length == 0) {
+						const {
+							noMovies
+						} = makeNodes(['pargragh'], ['p']);
+						noMovies.textContent = ' There is no results';
+						container.appenChild(noMovies);
+					}
+					result.forEach(movie => {
+							const objct =  {
+								movieTitle,
+								movieImage,
+								realseDate
+							} = makeNodes(['movieTitle', 'movieImage', 'movieRelaseDate'], ['h2', 'img', 'span']);
+							const containerObjct =  {
+								movieContainer
+							} = makeNodes(['movieContainer'], ['div']);
+							movieContainer.appenChild(...objct);
+							container.appenChild(containerObjct);						
+						}
+					 );
+			})
+			
